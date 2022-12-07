@@ -28,12 +28,12 @@ static const char *colors[][3]      = {
 
 static const char *const autostart[] = {
 //	"xrdb", "-merge", "/home/novores/.Xresources", NULL,
-  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/geology.png", NULL,
+  "feh", "--bg-fill", "/home/novores/Dotless/wallpapers/geology.png", NULL,
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
  // "pipewire-pulse", NULL,
-  "/home/novores/Developments/deweem/xautolock.sh", NULL,
-  "sh", "-c", "pkill bar.sh; /home/novores/Developments/deweem/dwmstatus/bar.sh", NULL,
+  "/home/novores/.local/bin/xautolock.sh", NULL,
+  "sh", "-c", "pkill bar.sh; /home/novores/Dotless/status/bar.sh", NULL,
   "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55", NULL,
 	NULL /* terminate */
 };
