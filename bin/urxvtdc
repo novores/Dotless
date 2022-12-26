@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# run urxvt in daemon
-urxvtc "$@" || {
-    urxvtd -q -o -f
-    urxvtc "$@"
-}
