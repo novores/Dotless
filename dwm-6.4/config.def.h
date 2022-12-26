@@ -3,7 +3,7 @@
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
@@ -13,6 +13,9 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;     /* 0 means no bar */
 static const int topbar             = 1;     /* 0 means bottom bar */
+static const double activeopacity   = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
+static const double inactiveopacity = 0.875f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
+static       Bool bUseOpacity       = True;     /* Starts with opacity on any unfocused windows */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font Bandit:style=Medium:size=9.5" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font Bandit:size=10";
 static const char col_gray1[]       = "#1d2021";
@@ -32,8 +35,8 @@ static const char *const autostart[] = {
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
  // "pipewire-pulse", NULL,
-  "/home/novores/.local/bin/xautolock.sh", NULL,
-  "sh", "-c", "pkill bar.sh; /home/novores/Dotless/status/bar.sh", NULL,
+  "/home/novores/.local/bin/xautolock_triger", NULL,
+  "sh", "-c", "pkill bar.sh; /home/novores/.local/bin/dwmstatus", NULL,
   "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55", NULL,
 	NULL /* terminate */
 };
@@ -121,6 +124,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_a,      toggleopacity,  {0} },
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
 	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
 	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
@@ -170,6 +174,10 @@ static const Key keys[] = {
   // Misc
   {ALTKEY,                        XK_m,       spawn,        SHCMD("mpd && dunstify 'mpd' 'online'")},
   {ALTKEY|ShiftMask,              XK_m,       spawn,        SHCMD("pkill mpd && dunstify 'mpd' 'offline'")},
+  {ALTKEY,                        XK_Left,    spawn,        SHCMD("mpc prev")},
+  {ALTKEY,                        XK_Right,   spawn,        SHCMD("mpc next")},
+  {ALTKEY,                        XK_Up,      spawn,        SHCMD("mpc pause")},
+  {ALTKEY,                        XK_Down,    spawn,        SHCMD("mpc stop")},
   {ALTKEY,                        XK_i,       spawn,        SHCMD("pamixer -i 2")},
   {ALTKEY,                        XK_d,       spawn,        SHCMD("pamixer -d 2")},
   {ALTKEY|ControlMask,            XK_i,       spawn,        SHCMD("xbacklight -inc 2")},
