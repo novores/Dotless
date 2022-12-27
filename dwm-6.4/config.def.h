@@ -31,7 +31,7 @@ static const char *colors[][3]      = {
 
 static const char *const autostart[] = {
 //	"xrdb", "-merge", "/home/novores/.Xresources", NULL,
-  "feh", "--bg-fill", "/home/novores/Dotless/wallpapers/geology.png", NULL,
+  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/geology.png", NULL,
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
  // "pipewire-pulse", NULL,
@@ -91,8 +91,8 @@ static const Layout layouts[] = {
 #include <X11/XF86keysym.h>
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-s", "-m", dmenumon, "-c", "-bw", "3", "-l", "7", "-h", "35", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray4, "-sb", col_yellow, "-sf", col_gray2, NULL };
+static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[] = { "dmenu_run", "-p", "Apps", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray4, "-sb", col_yellow, "-sf", col_gray2, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *volup[] = {"pamixer", "-i", "2", NULL};
 static const char *voldown[] = {"pamixer", "-d", "2", NULL};
@@ -176,8 +176,10 @@ static const Key keys[] = {
   {ALTKEY|ShiftMask,              XK_m,       spawn,        SHCMD("pkill mpd && dunstify 'mpd' 'offline'")},
   {ALTKEY,                        XK_Left,    spawn,        SHCMD("mpc prev")},
   {ALTKEY,                        XK_Right,   spawn,        SHCMD("mpc next")},
-  {ALTKEY,                        XK_Up,      spawn,        SHCMD("mpc pause")},
+  {ALTKEY,                        XK_Up,      spawn,        SHCMD("mpc toggle")},
   {ALTKEY,                        XK_Down,    spawn,        SHCMD("mpc stop")},
+  {ALTKEY,                        XK_p,       spawn,        SHCMD("rbwmenu")},
+  {ALTKEY,                        XK_t,       spawn,        SHCMD("transmenu")},
   {ALTKEY,                        XK_i,       spawn,        SHCMD("pamixer -i 2")},
   {ALTKEY,                        XK_d,       spawn,        SHCMD("pamixer -d 2")},
   {ALTKEY|ControlMask,            XK_i,       spawn,        SHCMD("xbacklight -inc 2")},
