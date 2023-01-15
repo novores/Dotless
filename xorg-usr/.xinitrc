@@ -4,4 +4,5 @@
 #   eval 'dbus-launch --sh-syntax --exit-with-session'
 # fi
 
-exec dbus-run-session ~/.local/bin/startdwm
+dbus-update-activation-environment --all
+exec ~/.local/bin/startdwm
