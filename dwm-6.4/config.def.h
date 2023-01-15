@@ -30,10 +30,12 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-//	"xrdb", "-merge", "/home/novores/.Xresources", NULL,
-  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/geology.png", NULL,
+  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/arch-night.png", NULL,
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
+  "usermount", NULL,
+  "xrdb", "/home/novores/.Xresources", NULL,
+  "xbacklight", "-set", "35", NULL,
  // "pipewire-pulse", NULL,
   "/home/novores/.local/bin/xautolock_triger", NULL,
   "sh", "-c", "pkill bar.sh; /home/novores/.local/bin/dwmstatus", NULL,
