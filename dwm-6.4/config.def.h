@@ -23,10 +23,11 @@ static const char col_gray2[]             = "#282828";
 static const char col_gray3[]             = "#504945";
 static const char col_gray4[]             = "#ebdbb2";
 static const char col_yellow[]            = "#e78a4e";
+static const char col_blue[]              = "#7daea3";
 static const char *colors[][3]            = {
 	/*               fg          bg          border   */
 	[SchemeNorm] = { col_gray4,  col_gray1,  col_gray3 },
-	[SchemeSel]  = { col_yellow, col_gray1,  col_gray4 },
+	[SchemeSel]  = { col_blue, col_gray1,  col_gray4 },
 };
 
 static const char *const autostart[] = {
@@ -104,6 +105,9 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *volup[] = {"pamixer", "-i", "2", NULL};
 static const char *voldown[] = {"pamixer", "-d", "2", NULL};
 static const char *mute[] = {"pamixer", "-t", NULL};
+static const char *mpcpl[] = {"mpc", "toggle", NULL};
+static const char *mpcnext[] = {"mpc", "next", NULL};
+static const char *mpcprev[] = {"mpc", "prev", NULL};
 static const char *brup[] = {"xbacklight", "-inc", "2", NULL};
 static const char *brdown[] = {"xbacklight", "-dec", "2", NULL};
 
@@ -175,22 +179,25 @@ static const Key keys[] = {
   {0,                             XF86XK_AudioMute,           spawn,  {.v = mute}},
   {0,                             XF86XK_AudioRaiseVolume,    spawn,  {.v = volup}},
   {0,                             XF86XK_AudioLowerVolume,    spawn,  {.v = voldown}},
+  {0,                             XF86XK_AudioPlay,           spawn,  {.v = mpcpl}},
+  {0,                             XF86XK_AudioNext,           spawn,  {.v = mpcnext}},
+  {0,                             XF86XK_AudioPrev,           spawn,  {.v = mpcprev}},
   {0,                             XF86XK_MonBrightnessUp,     spawn,  {.v = brup}},
   {0,                             XF86XK_MonBrightnessDown,   spawn,  {.v = brdown}},
 
   // Misc
   {ALTKEY,                        XK_m,       spawn,        SHCMD("mpd && dunstify 'mpd' 'online'")},
   {ALTKEY|ShiftMask,              XK_m,       spawn,        SHCMD("pkill mpd && dunstify 'mpd' 'offline'")},
-  {ALTKEY,                        XK_Left,    spawn,        SHCMD("mpc prev")},
-  {ALTKEY,                        XK_Right,   spawn,        SHCMD("mpc next")},
-  {ALTKEY,                        XK_Up,      spawn,        SHCMD("mpc toggle")},
+  {ALTKEY,                        XK_Left,    spawn,        {.v = mpcprev}},
+  {ALTKEY,                        XK_Right,   spawn,        {.v = mpcnext}},
+  {ALTKEY,                        XK_Up,      spawn,        {.v = mpcpl}},
   {ALTKEY,                        XK_Down,    spawn,        SHCMD("mpc stop")},
   {ALTKEY,                        XK_p,       spawn,        SHCMD("rbwmenu")},
   {ALTKEY,                        XK_t,       spawn,        SHCMD("transmenu")},
-  {ALTKEY,                        XK_i,       spawn,        SHCMD("pamixer -i 2")},
-  {ALTKEY,                        XK_d,       spawn,        SHCMD("pamixer -d 2")},
-  {ALTKEY|ControlMask,            XK_i,       spawn,        SHCMD("xbacklight -inc 2")},
-  {ALTKEY|ControlMask,            XK_d,       spawn,        SHCMD("xbacklight -dec 2")},
+  {ALTKEY,                        XK_i,       spawn,        {.v = volup}},
+  {ALTKEY,                        XK_d,       spawn,        {.v = voldown}},
+  {ALTKEY|ControlMask,            XK_i,       spawn,        {.v = brup}},
+  {ALTKEY|ControlMask,            XK_d,       spawn,        {.v = brdown}},
 };
 
 /* button definitions */
